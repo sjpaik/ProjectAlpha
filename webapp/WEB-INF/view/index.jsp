@@ -4,6 +4,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+testsetset1111asdfasdfasdfafsadfsd
   </body>
+  <script type="text/javascript" src="/resources/test.js"></script>
 </html>
