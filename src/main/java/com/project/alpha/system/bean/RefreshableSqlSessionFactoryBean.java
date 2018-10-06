@@ -1,8 +1,6 @@
 package com.project.alpha.system.bean;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +44,7 @@ public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean impl
 		this.interval = interval;
 	}
 
-	public void refresh() throws Exception {
+	private void refresh() throws Exception {
 		if (LOGGER.isInfoEnabled()) {
 			LOGGER.info("refreshing sqlMapClient.");
 		}
@@ -67,15 +65,9 @@ public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean impl
 		proxy = (SqlSessionFactory) Proxy.newProxyInstance(
 				SqlSessionFactory.class.getClassLoader(),
 				new Class[] { SqlSessionFactory.class },
-				new InvocationHandler() {
-					public Object invoke(Object proxy, Method method,
-							Object[] args) throws Throwable {
-						// log.debug("method.getName() : " + method.getName()); 
-						return method.invoke(getParentObject(), args);
-					}
-				});
+				(proxy, method, args) -> method.invoke(getParentObject(), args));
 		task = new TimerTask() {
-			private Map<Resource, Long> map = new HashMap<Resource, Long>();
+			private final Map<Resource, Long> map = new HashMap<>();
 
 			public void run() {
 				if (isModified()) {
@@ -90,8 +82,7 @@ public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean impl
 			private boolean isModified() {
 				boolean retVal = false;
 				if (mapperLocations != null) {
-					for (int i = 0; i < mapperLocations.length; i++) {
-						Resource mappingLocation = mapperLocations[i];
+					for (Resource mappingLocation : mapperLocations) {
 						retVal |= findModifiedResource(mappingLocation);
 					}
 				}
@@ -100,18 +91,18 @@ public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean impl
 
 			private boolean findModifiedResource(Resource resource) {
 				boolean retVal = false;
-				List<String> modifiedResources = new ArrayList<String>();
+				List<String> modifiedResources = new ArrayList<>();
 				try {
 					long modified = resource.lastModified();
 					if (map.containsKey(resource)) {
-						long lastModified = ((Long) map.get(resource)).longValue();
+						long lastModified = map.get(resource);
 						if (lastModified != modified) {
-							map.put(resource, new Long(modified));
+							map.put(resource, modified);
 							modifiedResources.add(resource.getDescription());
 							retVal = true;
 						}
 					} else {
-						map.put(resource, new Long(modified));
+						map.put(resource, modified);
 					}
 				} catch (IOException e) {
 					LOGGER.error("caught exception", e);
@@ -142,19 +133,11 @@ public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean impl
 	}
 
 	public Class<? extends SqlSessionFactory> getObjectType() {
-		return (this.proxy != null ? this.proxy.getClass()
-				: SqlSessionFactory.class);
+		return (this.proxy != null ? this.proxy.getClass() : SqlSessionFactory.class);
 	}
 
 	public boolean isSingleton() {
 		return true;
-	}
-
-	public void setCheckInterval(int ms) {
-		interval = ms;
-		if (timer != null) {
-			resetInterval();
-		}
 	}
 
 	private void resetInterval() {
@@ -168,7 +151,7 @@ public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean impl
 		}
 	}
 
-	public void destroy() throws Exception {
+	public void destroy() {
 		timer.cancel();
 	}
 }

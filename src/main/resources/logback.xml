@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
 <configuration>
 
     <property name="LOGS_ABSOLUTE_PATH" value="C:/logs" />
@@ -39,44 +40,43 @@
     </appender>
 
     <logger name="jdbc.connection" additivity="false">
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.resultset" additivity="false">
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.resultsettable" additivity="false">
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.audit" additivity="false">
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.sqlonly" additivity="false">
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.sqltiming" additivity="false">
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
 
-    <root>
-        <level value="info" />
+    <root level="debug">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
