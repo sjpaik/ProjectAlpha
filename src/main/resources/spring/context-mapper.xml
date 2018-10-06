@@ -3,13 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="com.project.alpha.system.bean.RefreshableSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:/sqlmap/sql-mapper-config.xml" />
         <property name="mapperLocations">
             <list>
                 <value>classpath*:sqlmap/mapper/**/*Mapper.xml</value>
             </list>
+        </property>
+        <property name="interval">
+            <value>1000</value>
         </property>
     </bean>
 
