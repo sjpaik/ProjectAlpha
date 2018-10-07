@@ -13,8 +13,6 @@ public class TestController {
 
     @RequestMapping(value = "/")
     public String test(){
-        String result = testService.selectTest();
-        System.out.println("### " + result);
         return "index";
     }
 

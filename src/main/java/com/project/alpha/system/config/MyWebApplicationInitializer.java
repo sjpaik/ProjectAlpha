@@ -1,12 +1,12 @@
 package com.project.alpha.system.config;
 
+import com.project.alpha.system.filter.CustomRequestLoggingFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -27,13 +27,8 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
         encodingFilter.addMappingForUrlPatterns(null, true, "/*");
 
         // Spring CommonsRequestLoggingFilter 설정
-        FilterRegistration.Dynamic loggingFilter = servletContext.addFilter("loggingFilter", new CommonsRequestLoggingFilter());
-        loggingFilter.setInitParameter("includeClientInfo", "true");
-        loggingFilter.setInitParameter("includeHeaders", "true");
-        loggingFilter.setInitParameter("includePayload", "true");
-        loggingFilter.setInitParameter("includeQueryString", "true");
-        loggingFilter.setInitParameter("maxPayloadLength", "1000");
-        loggingFilter.addMappingForUrlPatterns(null, true, "/*");
+        servletContext.addFilter("loggingFilter", CustomRequestLoggingFilter.class)
+                .addMappingForServletNames(null, false, "spring");
 
         // Spring RequestContextListener 설정
         servletContext.addListener(new RequestContextListener());

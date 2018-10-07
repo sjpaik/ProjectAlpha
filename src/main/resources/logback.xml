@@ -40,37 +40,34 @@
     </appender>
 
     <logger name="jdbc.connection" additivity="false">
-        <level value="debug" />
+        <level value="error" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.resultset" additivity="false">
-        <level value="debug" />
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="SERVICE_ROLLING" />
-        <appender-ref ref="ERROR_ROLLING" />
+        <level value="off" />
     </logger>
     <logger name="jdbc.resultsettable" additivity="false">
-        <level value="debug" />
+        <level value="info" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.audit" additivity="false">
-        <level value="debug" />
+        <level value="error" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.sqlonly" additivity="false">
-        <level value="debug" />
+        <level value="info" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
     </logger>
     <logger name="jdbc.sqltiming" additivity="false">
-        <level value="debug" />
+        <level value="error" />
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SERVICE_ROLLING" />
         <appender-ref ref="ERROR_ROLLING" />
