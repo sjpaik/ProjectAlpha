@@ -4,7 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class AuthorityModel implements GrantedAuthority {
 
-    private int authorityNo;
+	private static final long serialVersionUID = 1L;
+	
+	private int authorityNo;
 
     @Override
     public String getAuthority() {

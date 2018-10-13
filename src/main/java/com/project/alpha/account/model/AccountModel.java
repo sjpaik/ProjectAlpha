@@ -7,7 +7,9 @@ import java.util.Collection;
 
 public class AccountModel implements UserDetails {
 
-    private String accountNo;
+	private static final long serialVersionUID = 1L;
+	
+	private String accountNo;
     private String accountId;
     private String name;
     private String email;
