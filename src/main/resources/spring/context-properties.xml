@@ -10,7 +10,7 @@
         <property name="fileEncoding" value="UTF-8" />
         <property name="locations">
             <list merge="true">
-                <value>classpath:properties/global.properties</value>
+                <value>classpath:properties/app.properties</value>
             </list>
         </property>
     </bean>
