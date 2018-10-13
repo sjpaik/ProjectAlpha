@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.alpha.account.mapper.AccountMapper">
+
+    <!-- 계정 정보 조회 -->
+    <select id="selectAccount" parameterType="string" resultType="AccountModel">
+        /* account.selectAccount */
+        SELECT
+            A.ACCOUNT_NO
+            ,A.ACCOUNT_ID
+            ,A.NAME
+            ,A.EMAIL
+            ,A.MOBILE
+            ,A.EMAIL_CERT_FLAG
+            ,A.MOBILE_CERT_FLAG
+            ,A.ACCOUNT_STATUS_CODE
+            ,A.REG_DTTM
+            ,A.REG_IP
+            ,A.SYS_ADMIN_FLAG
+            ,B.PASSWORD
+            ,B.FAILED_LOGIN_COUNT
+        FROM PA_ACCOUNT A
+        INNER JOIN PA_ACCOUNT_AUTH_INFO B ON A.ACCOUNT_NO = B.ACCOUNT_NO
+        WHERE ACCOUNT_ID = #{accountId}
+    </select>
+
+    <!-- 계정 권한 정보 조회 -->
+    <select id="selectAccountAuthorityList" parameterType="string" resultType="AuthorityModel">
+        /* account.selectAccountAuthorityList */
+        SELECT
+            A.AUTHORITY_NO
+        FROM PA_SYS_ACCOUNT_AUTHORITY A
+        WHERE A.ACCOUNT_NO = #{accountNo}
+    </select>
+
+</mapper>

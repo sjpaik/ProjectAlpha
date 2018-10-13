@@ -2,7 +2,18 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     
+    <settings>
+        <setting name="cacheEnabled" value="false" />
+        <setting name="useGeneratedKeys" value="true" />
+        <setting name="defaultExecutorType" value="REUSE" />
+        <setting name="safeResultHandlerEnabled" value="false" />
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
+    
     <typeAliases>
+        <typeAlias type="com.project.alpha.account.model.AccountModel" alias="AccountModel" />
+        <typeAlias type="com.project.alpha.account.model.AuthorityModel" alias="AuthorityModel" />
     </typeAliases>
     
 </configuration>
