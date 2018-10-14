@@ -31,13 +31,13 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         String accountId = (String) authentication.getPrincipal();
         String accountPassword = (String) authentication.getCredentials();
 
-        LOGGER.debug("# User ID : " + accountId);
-        LOGGER.debug("# User Password : " + accountPassword);
+//        LOGGER.debug("# User ID : " + accountId);
+//        LOGGER.debug("# User Password : " + accountPassword);
 
         AccountModel accountModel = (AccountModel) accountDetailService.loadUserByUsername(accountId);
 
-        LOGGER.debug("# DB User ID : " + accountModel.getAccountId());
-        LOGGER.debug("# DB User Password : " + accountModel.getPassword());
+//        LOGGER.debug("# DB User ID : " + accountModel.getAccountId());
+//        LOGGER.debug("# DB User Password : " + accountModel.getPassword());
 
         if(!passwordEncoder.matches(accountPassword, accountModel.getPassword())){
             throw new BadCredentialsException("Bad credentials");

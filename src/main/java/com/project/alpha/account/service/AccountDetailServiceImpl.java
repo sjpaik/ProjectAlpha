@@ -24,13 +24,9 @@ public class AccountDetailServiceImpl implements AccountDetailService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AccountModel accountModel = accountMapper.selectAccount(username);
 
-        if(accountModel == null) throw new UsernameNotFoundException("");
+        if(accountModel == null) throw new UsernameNotFoundException("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
 
-        List<AuthorityModel> authorityList = accountMapper.selectAccountAuthorityList(accountModel.getAccountNo());
-
-        if(authorityList.size() == 0) throw new UsernameNotFoundException("");
-
-        accountModel.setAuthorities(authorityList);
+        accountModel.setAuthorities(accountMapper.selectAccountAuthorityList(accountModel.getAccountNo()));
         return accountModel;
     }
 
