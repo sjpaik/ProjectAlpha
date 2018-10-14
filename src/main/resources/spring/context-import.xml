@@ -7,7 +7,7 @@
     <import resource="classpath*:spring/context-datasource.xml" />
     <import resource="classpath*:spring/context-mapper.xml" />
     <import resource="classpath*:spring/context-properties.xml" />
-    <import resource="classpath*:spring/context-transaction.xml" />
     <import resource="classpath*:spring/context-security.xml" />
+    <import resource="classpath*:spring/context-transaction.xml" />
 
 </beans>

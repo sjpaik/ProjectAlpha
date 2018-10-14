@@ -2,22 +2,24 @@ package com.project.alpha.account.service;
 
 import com.project.alpha.account.model.AccountModel;
 import com.project.alpha.account.mapper.AccountMapper;
-import com.project.alpha.account.model.AuthorityModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class AccountDetailServiceImpl implements AccountDetailService {
 
     private final AccountMapper accountMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public AccountDetailServiceImpl(AccountMapper accountMapper) {
+    public AccountDetailServiceImpl(AccountMapper accountMapper,
+                                    BCryptPasswordEncoder passwordEncoder) {
         this.accountMapper = accountMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -28,6 +30,17 @@ public class AccountDetailServiceImpl implements AccountDetailService {
 
         accountModel.setAuthorities(accountMapper.selectAccountAuthorityList(accountModel.getAccountNo()));
         return accountModel;
+    }
+
+    @Override
+    public void insertAccountInfo(AccountModel accountModel) {
+        String password = accountModel.getPassword();
+        String encodePassword = passwordEncoder.encode(password);
+        accountModel.setPassword(encodePassword);
+        accountModel.setAccountStatusCode("S01");
+
+        accountMapper.insertAccount(accountModel);
+        accountMapper.insertAccountAuthInfo(accountModel);
     }
 
 }

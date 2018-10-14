@@ -4,7 +4,7 @@
 
     <!-- 계정 정보 조회 -->
     <select id="selectAccount" parameterType="string" resultType="AccountModel">
-        /* account.selectAccount */
+        /* AccountMapper.selectAccount */
         SELECT
             A.ACCOUNT_NO
             ,A.ACCOUNT_ID
@@ -26,11 +26,58 @@
 
     <!-- 계정 권한 정보 조회 -->
     <select id="selectAccountAuthorityList" parameterType="string" resultType="AuthorityModel">
-        /* account.selectAccountAuthorityList */
+        /* AccountMapper.selectAccountAuthorityList */
         SELECT
             A.AUTHORITY_NO
         FROM PA_SYS_ACCOUNT_AUTHORITY A
         WHERE A.ACCOUNT_NO = #{accountNo}
     </select>
+
+    <!-- 계정정보 추가 -->
+    <insert id="insertAccount" parameterType="AccountModel">
+        /* AccountMapper.insertAccount */
+        <selectKey keyProperty="accountNo" resultType="string" order="BEFORE">
+            SELECT SEQ_PAA_ACCOUNT_NO.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO PA_ACCOUNT (
+            ACCOUNT_NO
+            ,ACCOUNT_ID
+            ,NAME
+            ,EMAIL
+            ,MOBILE
+            ,EMAIL_CERT_FLAG
+            ,MOBILE_CERT_FLAG
+            ,ACCOUNT_STATUS_CODE
+            ,REG_DTTM
+            ,REG_IP
+            ,SYS_ADMIN_FLAG
+        ) VALUES (
+            #{accountNo}
+            ,#{accountId}
+            ,#{name}
+            ,#{email}
+            ,#{mobile}
+            ,#{emailCertFlag}
+            ,#{mobileCertFlag}
+            ,#{accountStatusCode}
+            ,SYSDATE
+            ,#{regIp}
+            ,#{sysAdminFlag}
+        )
+    </insert>
+
+    <!-- 계정 인증 정보 추가 -->
+    <insert id="insertAccountAuthInfo" parameterType="AccountModel">
+        /* AccountMapper.insertAccountAuthInfo */
+        INSERT INTO PA_ACCOUNT_AUTH_INFO (
+            ACCOUNT_NO
+            ,PASSWORD
+            ,FAILED_LOGIN_COUNT
+        ) VALUES (
+            #{accountNo}
+            ,#{password}
+            ,#{failedLoginCount}
+        )
+    </insert>
 
 </mapper>

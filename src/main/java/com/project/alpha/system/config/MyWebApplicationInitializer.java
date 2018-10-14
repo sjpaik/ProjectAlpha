@@ -10,11 +10,9 @@ import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
-import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletRegistration;
 
 public class MyWebApplicationInitializer implements WebApplicationInitializer {
 
@@ -34,11 +32,13 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
         servletContext.addListener(new ContextLoaderListener(basicContext));
 
         // Spring ServletContextListener 설정
+        /*
         XmlWebApplicationContext dispatcherContext = new XmlWebApplicationContext();
         dispatcherContext.setConfigLocation("/WEB-INF/config/dispatcher-servlet.xml");
         ServletRegistration.Dynamic spring = servletContext.addServlet("spring", new DispatcherServlet(dispatcherContext));
         spring.setLoadOnStartup(1);
         spring.addMapping("/");
+        */
 
         // Spring CharacterEncodingFilter 설정
         FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());

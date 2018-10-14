@@ -23,4 +23,16 @@ public interface AccountMapper {
      */
     List<AuthorityModel> selectAccountAuthorityList(String accountNo);
 
+    /**
+     * 계정 정보 추가
+     * @param accountModel AccountModel
+     */
+    void insertAccount(AccountModel accountModel);
+
+    /**
+     * 계정 인증 정보 추가
+     * @param accountModel AccountModel
+     */
+    void insertAccountAuthInfo(AccountModel accountModel);
+
 }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.alpha.common.code.mapper.CommonCodeMapper">
+
+    <!-- 공통 코드 리스트 조회 -->
+    <select id="selectCommonCodeList" parameterType="CommonCodeModel" resultType="CommonCodeModel">
+        /* CommonCodeMapper.selectCommonCodeList */
+        SELECT
+            A.CODE
+            ,A.CATEGORY
+            ,A.CODE_NAME
+            ,A.USE_FLAG
+            ,A.CODE_ORDER
+            ,A.DESCRIPTION
+            ,A.REG_NO
+            ,A.REG_DTTM
+            ,A.UPD_NO
+            ,A.UPD_DTTM
+        FROM PA_SYS_COMMON_CODE A
+    </select>
+
+    <!-- 공통 코드 분류별 리스트 조회 -->
+    <select id="selectCommonCodeListWhereCategory" parameterType="CommonCodeModel" resultType="CommonCodeModel">
+        /* CommonCodeMapper.selectCommonCodeListWhereCategory */
+        SELECT
+            A.CODE
+            ,A.CATEGORY
+            ,A.CODE_NAME
+            ,A.USE_FLAG
+            ,A.CODE_ORDER
+            ,A.DESCRIPTION
+            ,A.REG_NO
+            ,A.REG_DTTM
+            ,A.UPD_NO
+            ,A.UPD_DTTM
+        FROM PA_SYS_COMMON_CODE A
+        WHERE CATEGORY = #{category}
+    </select>
+
+    <!-- 공통 코드 추가 -->
+    <insert id="insertCommonCode" parameterType="CommonCodeModel">
+        /* CommonCodeMapper.insertCommonCode */
+        INSERT INTO PA_SYS_COMMON_CODE (
+            CODE
+            ,CATEGORY
+            ,CODE_NAME
+            ,USE_FLAG
+            ,CODE_ORDER
+            ,DESCRIPTION
+            ,REG_NO
+            ,REG_DTTM
+        ) VALUES (
+             #{code}
+             ,#{category}
+             ,#{codeName}
+             ,#{useFlag}
+             ,#{codeOrder}
+             ,#{description}
+             ,#{regNo}
+             ,SYSDATE
+        )
+    </insert>
+
+    <!-- 공통 코드 수정 -->
+    <update id="updateCommonCode" parameterType="CommonCodeModel">
+        /* CommonCodeMapper.updateCommonCode */
+        UPDATE PA_SYS_COMMON_CODE
+        SET
+            CODE = #{code}
+            ,CATEGORY = #{category}
+            ,CODE_NAME = #{codeName}
+            ,USE_FLAG = #{useFlag}
+            ,CODE_ORDER = #{codeOrder}
+            ,DESCRIPTION = #{description}
+            ,UPD_NO = #{updNo}
+            ,UPD_DTTM = SYSDATE
+        WHERE CODE = #{code}
+        AND CATEGORY = #{category}
+    </update>
+
+    <!-- 공통 코드 삭제 -->
+    <delete id="deleteCommonCode" parameterType="CommonCodeModel">
+        /* CommonCodeMapper.deleteCommonCode */
+        DELETE FROM PA_SYS_COMMON_CODE
+        WHERE CODE = #{code}
+        AND CATEGORY = #{category}
+    </delete>
+
+</mapper>
