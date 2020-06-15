@@ -12,6 +12,7 @@
     </settings>
     
     <typeAliases>
+        <typeAlias type="com.project.alpha.board.model.BoardModel" alias="BoardModel" />
         <typeAlias type="com.project.alpha.account.model.AccountModel" alias="AccountModel" />
         <typeAlias type="com.project.alpha.account.model.AuthorityModel" alias="AuthorityModel" />
         <typeAlias type="com.project.alpha.common.code.model.CommonCodeModel" alias="CommonCodeModel" />

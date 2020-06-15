@@ -51,8 +51,10 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
                 .addMappingForServletNames(null, false, "spring");
 
         // Spring Security Filter 설정
+        /*
         FilterRegistration.Dynamic springSecurityFilterChain = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
         springSecurityFilterChain.addMappingForUrlPatterns(null, true, "/*");
+		*/
 
         // Spring RequestContextListener 설정
         servletContext.addListener(new RequestContextListener());

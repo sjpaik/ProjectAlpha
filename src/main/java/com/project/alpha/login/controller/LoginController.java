@@ -57,9 +57,4 @@ public class LoginController {
         return "redirect:" + redirectURL;
     }
 
-    @RequestMapping(value = "/")
-    public String test(){
-        return "index";
-    }
-
 }
